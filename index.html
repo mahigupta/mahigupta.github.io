@@ -1,27 +1,780 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Mahesh Gupta</title>
-    <style>
-        .resume {
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            top: 0px;
-            margin-left: auto;
-            margin-right: auto;
-            width: 50%;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Gupta Family Tree</title>
+  <script src="https://unpkg.com/d3@7"></script>
+  <script src="https://unpkg.com/family-chart@0.9.0"></script>
+  <script src="data.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/family-chart@0.9.0/dist/styles/family-chart.css">
+  <style>
+    body { 
+      font-family: 'Arial', sans-serif; 
+      margin: 0;
+      background: linear-gradient(180deg, #f8fafc 0%, #ffffff 220px);
+      color: #0f172a;
+    }
+
+    .page-header {
+      padding: 12px 20px 6px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .page-title-frame {
+      min-width: min(760px, calc(100% - 32px));
+      padding: 20px 28px;
+      border: 1px solid #cbd5e1;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-title-frame::before,
+    .page-title-frame::after {
+      content: "";
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(148, 163, 184, 0.22) 0%, rgba(148, 163, 184, 0) 70%);
+      pointer-events: none;
+    }
+
+    .page-title-frame::before {
+      top: -70px;
+      left: -40px;
+    }
+
+    .page-title-frame::after {
+      right: -45px;
+      bottom: -90px;
+    }
+
+    .page-title-accent {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 10px;
+      color: #64748b;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+
+    .page-title-accent::before,
+    .page-title-accent::after {
+      content: "";
+      width: 72px;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(100, 116, 139, 0), rgba(100, 116, 139, 0.9), rgba(100, 116, 139, 0));
+    }
+
+    .page-title {
+      margin: 0;
+      text-align: center;
+      font-size: 60px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      color: #0f172a;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-subtitle {
+      margin-top: 10px;
+      text-align: center;
+      color: #475569;
+      font-size: 16px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+    }
+
+    .f3 .link {
+      stroke: #334155;
+      stroke-width: 2px;
+    }
+
+    .f3 .link.f3-path-to-main {
+      stroke: #0f172a;
+    }
+
+    .f3 div.card .deceased-badge {
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      width: 22px;
+      height: 22px;
+      color: #f97316;
+      font-size: 14px;
+      line-height: 22px;
+      text-align: center;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    #FamilyChart {
+      width:100%;
+      height:min(58vh, 580px);
+      margin:auto;
+      color:#fff;
+    }
+
+    .family-tree-hint {
+      width: min(1200px, calc(100% - 24px));
+      margin: 4px auto 0;
+      padding: 0 4px;
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .family-map-section {
+      width: min(1200px, calc(100% - 24px));
+      margin: 6px auto 24px;
+      padding: 16px;
+      border: 1px solid #cbd5e1;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .family-map-title {
+      margin: 0 0 6px;
+      font-size: 24px;
+      color: #0f172a;
+    }
+
+    .family-map-subtitle {
+      margin: 0 0 14px;
+      color: #475569;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    #FamilyMap {
+      width: 100%;
+      height: 380px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #cbd5e1;
+      background: #e2e8f0;
+    }
+
+    .family-map-hint {
+      margin: 10px 2px 0;
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .person-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(15, 23, 42, 0.55);
+      z-index: 20;
+    }
+
+    .person-modal.open {
+      display: flex;
+    }
+
+    .person-modal-card {
+      width: min(620px, 100%);
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.2);
+      overflow: hidden;
+    }
+
+    .person-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .person-modal-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .person-modal-close {
+      border: none;
+      background: transparent;
+      color: #334155;
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0 4px;
+    }
+
+    .person-modal-body {
+      padding: 16px;
+      color: #1e293b;
+    }
+
+    .person-avatar-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .person-full-name {
+      margin-top: 12px;
+      font-size: 24px;
+      font-weight: 700;
+      color: #0f172a;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .deceased-name-icon {
+      color: #f97316;
+      font-size: 14px;
+      display: inline-block;
+      position: relative;
+      top: -10px;
+    }
+
+    .person-avatar {
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      border: 2px solid #cbd5e1;
+      object-fit: cover;
+      background: #e2e8f0;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.16);
+    }
+
+    .person-avatar-fallback {
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      border: 2px solid #cbd5e1;
+      background: linear-gradient(145deg, #1e293b, #334155);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 70px;
+      font-weight: 700;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.16);
+    }
+
+    .person-detail-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+      font-size: 15px;
+    }
+
+    .person-detail-label {
+      min-width: 90px;
+      color: #475569;
+      font-weight: 700;
+    }
+
+    .person-bio-block {
+      margin-top: 10px;
+      padding: 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+    }
+
+    .person-bio-label {
+      margin: 0 0 8px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #475569;
+    }
+
+    .person-bio-text {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.65;
+      color: #1e293b;
+      white-space: pre-line;
+    }
+
+    @media (max-width: 700px) {
+      .page-header {
+        padding: 18px 12px 8px;
+      }
+
+      .page-title-frame {
+        padding: 18px 18px 16px;
+        border-radius: 18px;
+      }
+
+      .page-title {
+        font-size: 38px;
+      }
+
+      .page-title-accent {
+        gap: 10px;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+      }
+
+      .page-title-accent::before,
+      .page-title-accent::after {
+        width: 42px;
+      }
+
+      .page-subtitle {
+        font-size: 12px;
+      }
+
+      #FamilyChart {
+        height: min(54vh, 500px);
+      }
+
+      .family-map-section {
+        width: calc(100% - 20px);
+        margin: 14px auto 22px;
+        padding: 12px;
+      }
+
+      .family-tree-hint {
+        width: calc(100% - 20px);
+      }
+
+      #FamilyMap {
+        height: 300px;
+      }
+
+      .person-avatar,
+      .person-avatar-fallback {
+        width: 130px;
+        height: 130px;
+      }
+
+      .person-avatar-fallback {
+        font-size: 40px;
+      }
+
+      .person-full-name {
+        font-size: 20px;
+      }
+    }
+  </style>
 </head>
-
 <body>
-    <div class="resume">
-        <iframe width="100%" height="100%" frameborder="0" src="https://docs.google.com/document/d/e/2PACX-1vR1wvqg9FvJZkuB5Io8eBNiZpFL5EKWxedkgoCXXTq94aZj26vjzmB_bfEkm5xwLGYbki6jk0g8p-_4/pub?embedded=true"></iframe>
+<header class="page-header">
+  <div class="page-title-frame">
+    <div class="page-title-accent">Family Tree</div>
+    <h1 class="page-title">Gupta Family</h1>
+    <div class="page-subtitle">Celebrating generations together</div>
+  </div>
+</header>
+<div id="FamilyChart" class="f3"></div>
+<p class="family-tree-hint">Tip: Scroll normally to move the page. Use Ctrl/Cmd + scroll to zoom the family tree.</p>
+
+<section class="family-map-section" aria-labelledby="familyMapTitle">
+  <h2 id="familyMapTitle" class="family-map-title">Family Locations</h2>
+  <div id="FamilyMap" role="region" aria-label="Family members map"></div>
+  <p id="FamilyMapHint" class="family-map-hint">Map is loading...</p>
+</section>
+
+<div id="personModal" class="person-modal" aria-hidden="true">
+  <div class="person-modal-card" role="dialog" aria-modal="true" aria-labelledby="personModalTitle">
+    <div class="person-modal-header">
+      <h2 id="personModalTitle" class="person-modal-title">Person Details</h2>
+      <button id="personModalClose" class="person-modal-close" type="button" aria-label="Close popup">&times;</button>
     </div>
+    <div id="personModalBody" class="person-modal-body"></div>
+  </div>
+</div>
 
+<script type="module">
+
+const personModal = document.getElementById('personModal')
+const personModalBody = document.getElementById('personModalBody')
+const personModalTitle = document.getElementById('personModalTitle')
+const personModalClose = document.getElementById('personModalClose')
+const familyMapHint = document.getElementById('FamilyMapHint')
+
+const GOOGLE_MAPS_API_KEY = 'AIzaSyDrZ3yYTzsJ4mMkkhIWKdzu8d43x8je92c'
+
+function setMapHint(message) {
+  familyMapHint.textContent = message
+}
+
+function closePersonModal() {
+  personModal.classList.remove('open')
+  personModal.setAttribute('aria-hidden', 'true')
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;')
+}
+
+function renderDetailRow(label, value) {
+  return `
+    <div class="person-detail-row">
+      <div class="person-detail-label">${label}</div>
+      <div>${value || 'N/A'}</div>
+    </div>
+  `
+}
+
+function renderPersonAvatar(person, fullName) {
+  const safeFullName = escapeHtml(fullName)
+  const deceasedNameIcon = person.deceased === true
+    ? '<span class="deceased-name-icon" aria-label="Deceased" title="Deceased">🪔</span>'
+    : ''
+
+  if (person.avatar) {
+    return `
+      <div class="person-avatar-wrap">
+        <img class="person-avatar" src="${person.avatar}" alt="${safeFullName} avatar">
+        <div class="person-full-name">${deceasedNameIcon}${safeFullName}</div>
+      </div>
+    `
+  }
+
+  const initials = fullName
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() || '')
+    .join('') || '?'
+
+  return `
+    <div class="person-avatar-wrap">
+      <div class="person-avatar-fallback" aria-label="No avatar">${initials}</div>
+      <div class="person-full-name">${deceasedNameIcon}${safeFullName}</div>
+    </div>
+  `
+}
+
+function renderBioSection(bio) {
+  if (!bio || !String(bio).trim()) {
+    return ''
+  }
+
+  return `
+    <section class="person-bio-block">
+      <h3 class="person-bio-label">📝 About Me</h3>
+      <p class="person-bio-text">${escapeHtml(bio)}</p>
+    </section>
+  `
+}
+
+function showPersonModal(personNode) {
+  const person = personNode?.data?.data || {}
+  const fullName = [person.first_name, person.last_name].filter(Boolean).join(' ').trim() || 'Unknown Person'
+  const displayNickname = person.nickname && String(person.nickname).trim()
+    ? person.nickname
+    : person.first_name
+  const hasBirthday = Boolean(person.birthday && String(person.birthday).trim())
+  const hasOccupation = Boolean(person.occupation && String(person.occupation).trim())
+  const hasEducation = Boolean(person.education && String(person.education).trim())
+
+  personModalTitle.textContent = fullName
+  personModalBody.innerHTML = `
+    ${renderPersonAvatar(person, fullName)}
+    ${renderDetailRow('🏷️ Nickname', displayNickname)}
+    ${hasBirthday ? renderDetailRow('🎂 Birthday', person.birthday) : ''}
+    ${hasOccupation ? renderDetailRow('💼 Occupation', person.occupation) : ''}
+    ${hasEducation ? renderDetailRow('🎓 Education', person.education) : ''}
+    ${renderBioSection(person.bio)}
+  `
+
+  personModal.classList.add('open')
+  personModal.setAttribute('aria-hidden', 'false')
+}
+
+personModalClose.addEventListener('click', closePersonModal)
+personModal.addEventListener('click', (event) => {
+  if (event.target === personModal) {
+    closePersonModal()
+  }
+})
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    closePersonModal()
+  }
+})
+
+function create(data) {
+  const f3Chart = f3.createChart('#FamilyChart', data)
+    .setTransitionTime(1000)
+    .setCardXSpacing(250)
+    .setCardYSpacing(150)
+
+  const card = f3Chart.setCardHtml()
+
+  card
+    .setCardDisplay([["first_name","last_name"],["birthday"]])
+    .setOnCardUpdate(function (d) {
+      const person = d?.data?.data || {}
+      const cardEl = this.querySelector('.card')
+
+      if (!cardEl) {
+        return
+      }
+
+      const existingBadge = cardEl.querySelector('.deceased-badge')
+      const isDeceased = person.deceased === true
+
+      if (!isDeceased) {
+        if (existingBadge) {
+          existingBadge.remove()
+        }
+        return
+      }
+
+      if (existingBadge) {
+        return
+      }
+
+      const badge = document.createElement('span')
+      badge.className = 'deceased-badge'
+      badge.textContent = '🪔'
+      badge.setAttribute('aria-label', 'Deceased')
+      badge.title = 'Deceased'
+      cardEl.appendChild(badge)
+    })
+    .setOnCardClick((event, d) => {
+      showPersonModal(d)
+    })
+
+  f3Chart.updateTree({initial: true})
+
+  enablePageScrollOverTree()
+}
+
+function enablePageScrollOverTree() {
+  const chartEl = document.getElementById('FamilyChart')
+  if (!chartEl) {
+    return
+  }
+
+  // Keep page scroll usable over the chart; reserve zoom for Ctrl/Cmd + wheel.
+  chartEl.addEventListener('wheel', (event) => {
+    const isIntentionalZoom = event.ctrlKey || event.metaKey
+
+    if (isIntentionalZoom) {
+      return
+    }
+
+    event.stopImmediatePropagation()
+  }, { capture: true, passive: false })
+}
+
+function getFullName(person) {
+  return [person.first_name, person.last_name].filter(Boolean).join(' ').trim() || 'Unknown Person'
+}
+
+function getLocationValue(person) {
+  const location = person.location
+  if (!location || typeof location !== 'object') {
+    return null
+  }
+
+  const lat = Number(location.lat)
+  const lng = Number(location.lng)
+
+  if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
+    return null
+  }
+
+  return {
+    lat,
+    lng,
+    label: location.label || ''
+  }
+}
+
+function renderFamilyMap(data) {
+  if (!window.google || !google.maps) {
+    setMapHint('Google Maps SDK did not load. Check your API key and browser console.')
+    return
+  }
+
+  const membersWithLocation = data
+    .map((entry) => {
+      const person = entry?.data || {}
+      const loc = getLocationValue(person)
+
+      if (!loc) {
+        return null
+      }
+
+      return {
+        id: entry.id,
+        name: getFullName(person),
+        nickname: person.nickname || '',
+        birthday: person.birthday || '',
+        occupation: person.occupation || '',
+        location: loc
+      }
+    })
+    .filter(Boolean)
+
+  if (!membersWithLocation.length) {
+    setMapHint('No valid locations found. Add data.location = { lat, lng, label } for each person in data.js.')
+    return
+  }
+
+  setMapHint(`Showing ${membersWithLocation.length} mapped family member(s).`)
+
+  const initialCenter = {
+    lat: membersWithLocation.reduce((sum, person) => sum + person.location.lat, 0) / membersWithLocation.length,
+    lng: membersWithLocation.reduce((sum, person) => sum + person.location.lng, 0) / membersWithLocation.length
+  }
+
+  const map = new google.maps.Map(document.getElementById('FamilyMap'), {
+    center: initialCenter,
+    zoom: 5,
+    mapTypeControl: false,
+    streetViewControl: false,
+    fullscreenControl: true
+  })
+
+  const bounds = new google.maps.LatLngBounds()
+  const infoWindow = new google.maps.InfoWindow()
+
+  // Group members that share the same lat/lng into one marker
+  const locationGroups = new Map()
+  membersWithLocation.forEach((person) => {
+    const key = `${person.location.lat},${person.location.lng}`
+    if (!locationGroups.has(key)) {
+      locationGroups.set(key, { location: person.location, members: [] })
+    }
+    locationGroups.get(key).members.push(person)
+  })
+
+  locationGroups.forEach(({ location, members }) => {
+    const markerTitle = members.map((p) => p.name).join(', ')
+    const marker = new google.maps.Marker({
+      map,
+      position: { lat: location.lat, lng: location.lng },
+      title: markerTitle,
+      label: { text: String(members.length), color: '#ffffff', fontWeight: 'bold', fontSize: '12px' }
+    })
+
+    bounds.extend(marker.getPosition())
+
+    function openInfoWindow() {
+      const memberRows = members.map((person) => {
+        // Find the full person data from familyData for avatar
+        const personData = (window.familyData || []).find(e => e.id === person.id)?.data || {}
+        const fullName = escapeHtml(person.name)
+        let avatarHtml = ''
+        if (personData.avatar) {
+          avatarHtml = `<img src="${personData.avatar}" alt="${fullName} avatar" style="width:32px;height:32px;border-radius:50%;object-fit:cover;border:1.5px solid #cbd5e1;background:#e2e8f0;margin-right:8px;vertical-align:middle;">`
+        } else {
+          // Fallback to initials
+          const initials = person.name.split(' ').filter(Boolean).slice(0,2).map(p=>p[0]?.toUpperCase()||'').join('') || '?'
+          avatarHtml = `<span style="display:inline-flex;width:32px;height:32px;border-radius:50%;background:#334155;color:#fff;align-items:center;justify-content:center;font-size:15px;font-weight:700;margin-right:8px;vertical-align:middle;border:1.5px solid #cbd5e1;">${initials}</span>`
+        }
+        return `<div style="display:flex;align-items:center;padding:5px 0;border-bottom:1px solid #e2e8f0;gap:4px;">
+          ${avatarHtml}
+          <span>${fullName}</span>
+        </div>`
+      })
+
+      const locationLabel = members[0].location.label
+        ? `<div style="margin-bottom:6px;font-size:12px;color:#64748b">${escapeHtml(members[0].location.label)}</div>`
+        : ''
+
+      infoWindow.setContent(
+        `<div style="min-width:220px;line-height:1.5;font-size:14px">
+          ${locationLabel}
+          ${memberRows.join('')}
+        </div>`
+      )
+      infoWindow.open({ map, anchor: marker })
+    }
+
+    marker.addListener('click', openInfoWindow)
+    marker.addListener('mouseover', openInfoWindow)
+    marker.addListener('mouseout', () => {
+      infoWindow.close()
+    })
+  })
+
+  if (membersWithLocation.length === 1) {
+    map.setCenter(initialCenter)
+    map.setZoom(10)
+    return
+  }
+
+  map.fitBounds(bounds)
+}
+
+function loadGoogleMapsSdk() {
+  return new Promise((resolve, reject) => {
+    if (window.google && google.maps) {
+      resolve()
+      return
+    }
+
+    if (!GOOGLE_MAPS_API_KEY || GOOGLE_MAPS_API_KEY === 'YOUR_GOOGLE_MAPS_API_KEY') {
+      reject(new Error('Missing Google Maps API key'))
+      return
+    }
+
+    const existingScript = document.getElementById('googleMapsSdk')
+    if (existingScript) {
+      existingScript.addEventListener('load', () => resolve(), { once: true })
+      existingScript.addEventListener('error', () => reject(new Error('Failed to load Google Maps SDK')), { once: true })
+      return
+    }
+
+    const script = document.createElement('script')
+    script.id = 'googleMapsSdk'
+    script.async = true
+    script.defer = true
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(GOOGLE_MAPS_API_KEY)}`
+    script.onload = () => resolve()
+    script.onerror = () => reject(new Error('Failed to load Google Maps SDK'))
+    document.head.appendChild(script)
+  })
+}
+
+async function initializeFamilyMap(data) {
+  try {
+    await loadGoogleMapsSdk()
+    renderFamilyMap(data)
+  } catch (error) {
+    setMapHint('Map is disabled. Add a valid Google Maps API key in index.html to enable it.')
+    console.warn(error)
+  }
+}
+
+create(familyData);
+initializeFamilyMap(familyData)
+
+</script>
 </body>
-
 </html>
