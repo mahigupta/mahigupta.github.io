@@ -717,10 +717,10 @@ function renderFamilyMap(data) {
     }
 
     marker.addListener('click', openInfoWindow)
-    marker.addListener('mouseover', openInfoWindow)
-    marker.addListener('mouseout', () => {
-      infoWindow.close()
-    })
+    // marker.addListener('mouseover', openInfoWindow)
+    // marker.addListener('mouseout', () => {
+    //   infoWindow.close()
+    // })
   })
 
   if (membersWithLocation.length === 1) {
