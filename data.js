@@ -10,6 +10,7 @@ var familyData = [
             bio: '', 
             occupation: 'Homemaker', 
             education: '', 
+            college: '', 
             gender: 'F', 
             location: { lat: 23.521969489272106, lng: 87.31579737545253, label: 'Durgapur, West Bengal' } 
         },
@@ -26,6 +27,7 @@ var familyData = [
             bio: '', 
             occupation: 'Ayurvedic Doctor', 
             education: '', 
+            college: '', 
             gender: 'M',
             deceased: true,
         },
@@ -42,6 +44,7 @@ var familyData = [
             bio: '', 
             occupation: 'Teacher', 
             education: '', 
+            college: '', 
             gender: 'F',
             location: { lat: 25.888681623911594, lng: 78.33799780291153, label: 'Dabra, Madhya Pradesh' }  
         },
@@ -57,7 +60,8 @@ var familyData = [
             avatar: 'images/rupa.jpeg', 
             bio: '', 
             occupation: 'Homemaker', 
-            education: 'MA Economics', 
+            education: 'MA Economics',
+            college: 'KRG College, Gwalior',
             gender: 'F',
             location: { lat: 22.080488903710563, lng: 82.1422025991808, label: 'Bilaspur, Chhattisgarh' }  
         },
@@ -74,6 +78,7 @@ var familyData = [
             bio: '', 
             occupation: 'Dean, Medical School', 
             education: 'MBBS, MD', 
+            college: 'GRMC Gwalior, GMC Bhopal', 
             gender: 'M',
             location: { lat: 23.270595658654354, lng: 77.41481441949732, label: 'Bhopal, Madhya Pradesh' }  
         },
@@ -90,6 +95,7 @@ var familyData = [
             bio: '', 
             occupation: 'Software Engineer', 
             education: 'BE (Electronics), MTech', 
+            college: 'LNCT Bhopal, IIT BHU Varanasi', 
             gender: 'M',
             location: { lat: 12.973350843644926, lng: 77.59315049123066, label: 'Bangalore, Karnataka' }  
         },
@@ -106,6 +112,7 @@ var familyData = [
             bio: '', 
             occupation: 'Software Engineer', 
             education: 'BE (CSE)', 
+            college: 'BIT Durg', 
             gender: 'F',
             location: { lat: 12.973350843644926, lng: 77.59315049123066, label: 'Bangalore, Karnataka' }
         },
@@ -122,6 +129,7 @@ var familyData = [
             bio: '', 
             occupation: 'DGM, NSPCL India', 
             education: 'BE (Electronics)', 
+            college: 'MITS Gwalior', 
             gender: 'M',
             location: { lat: 23.521969489272106, lng: 87.31579737545253, label: 'Durgapur, West Bengal' }  
         },
@@ -138,6 +146,7 @@ var familyData = [
             bio: '', 
             occupation: 'Software Engineer', 
             education: 'BTech(IT), MS (CS)', 
+            college: 'NIT Bhopal, UT Arlington', 
             gender: 'M',
             location: { lat: 37.33536104851249, lng: -121.8597298496179, label: 'San Jose, California' } 
         },
@@ -154,6 +163,7 @@ var familyData = [
             bio: '', 
             occupation: 'Software Engineer', 
             education: 'BE(CSE)', 
+            college: 'OIST Bhopal', 
             gender: 'F',
             location: { lat: 17.41948789529526, lng: 78.49660674677266, label: 'Hyderabad, Telangana' }  
         },
@@ -170,6 +180,7 @@ var familyData = [
             bio: '', 
             occupation: 'Businessman', 
             education: '', 
+            college: '', 
             gender: 'M',
             location: { lat: 25.888681623911594, lng: 78.33799780291153, label: 'Dabra, Madhya Pradesh' } 
         },
@@ -186,6 +197,7 @@ var familyData = [
             bio: '', 
             occupation: 'Sr Manager, Coal India', 
             education: 'AMIE (Mechanical Engineering)', 
+            college: 'AMIE Kolkata', 
             gender: 'M',
             location: { lat: 22.080488903710563, lng: 82.1422025991808, label: 'Bilaspur, Chhattisgarh' }
         },
@@ -202,6 +214,7 @@ var familyData = [
             bio: '', 
             occupation: 'Homemaker, Social Worker', 
             education: 'BSc, MBA', 
+            college: 'Nutan College Bhopal, SIBM Pune', 
             gender: 'F',
             location: { lat: 23.270595658654354, lng: 77.41481441949732, label: 'Bhopal, Madhya Pradesh' } 
         },
@@ -218,6 +231,7 @@ var familyData = [
             bio: '', 
             occupation: 'Homemaker', 
             education: 'BSc, C-DAC', 
+            college: 'Jabalpur University', 
             gender: 'F',
             location: { lat: 12.973350843644926, lng: 77.59315049123066, label: 'Bangalore, Karnataka' } 
         },
@@ -234,6 +248,7 @@ var familyData = [
             bio: '', 
             occupation: 'Director, Consulting, Deloitte India', 
             education: 'BE, MBA', 
+            college: 'University of Mumbai, Temple University', 
             gender: 'M',
             location: { lat: 12.973350843644926, lng: 77.59315049123066, label: 'Bangalore, Karnataka' } 
         },
@@ -250,6 +265,7 @@ var familyData = [
             bio: '', 
             occupation: 'Homemaker', 
             education: 'BSc, MCA', 
+            college: 'ITM Gwalior', 
             gender: 'F',
             location: { lat: 23.521969489272106, lng: 87.31579737545253, label: 'Durgapur, West Bengal' } 
         },
@@ -266,6 +282,7 @@ var familyData = [
             bio: '', 
             occupation: 'Software Engineer', 
             education: 'BE(CSE)', 
+            college: 'OIST Bhopal', 
             gender: 'F',
             location: { lat: 37.33536104851249, lng: -121.8597298496179, label: 'San Jose, California' } 
         },
@@ -282,6 +299,7 @@ var familyData = [
             bio: '', 
             occupation: 'Software Engineer', 
             education: 'BE, MTech', 
+            college: 'JNTU Hyderabad', 
             gender: 'M',
             location: { lat: 17.41948789529526, lng: 78.49660674677266, label: 'Hyderabad, Telangana' }
         },
@@ -297,7 +315,8 @@ var familyData = [
             avatar: 'images/shikhu.jpg', 
             bio: '', 
             occupation: 'Software Engineer', 
-            education: 'BSc, MCA', 
+            education: 'BSc, MCA',
+            college: 'JEC Jabalpur',
             gender: 'F',
             location: { lat: 12.973350843644926, lng: 77.59315049123066, label: 'Bangalore, Karnataka' }
         },
@@ -313,7 +332,8 @@ var familyData = [
             avatar: 'images/saurabh.jpeg', 
             bio: '', 
             occupation: 'Software Engineer', 
-            education: 'BSc, MCA', 
+            education: 'BSc, MCA',
+             college: 'NIT Surathkal', 
             gender: 'M',
             location: { lat: 12.973350843644926, lng: 77.59315049123066, label: 'Bangalore, Karnataka' } 
         },
@@ -345,7 +365,8 @@ var familyData = [
             avatar: 'images/shubham.jpg', 
             bio: '', 
             occupation: 'Sales and Marketing, OLX India', 
-            education: 'BSc, MBA', 
+            education: 'BSc, MBA',
+            college: 'SBES Pune', 
             gender: 'M',
             deceased: true, 
         },
@@ -361,7 +382,8 @@ var familyData = [
             avatar: 'images/adarsh.jpg', 
             bio: '', 
             occupation: 'Software Engineer', 
-            education: 'B Tech', 
+            education: 'B Tech',
+            college: 'IIIT Bhubaneswar',  
             gender: 'M',
             location: { lat: 17.41948789529526, lng: 78.49660674677266, label: 'Hyderabad, Telangana' }
         },
@@ -377,7 +399,8 @@ var familyData = [
             avatar: 'images/akku.jpg', 
             bio: '', 
             occupation: 'Medical Student', 
-            education: 'MBBS', 
+            education: 'MBBS',
+            college: 'PT JNM Medical College Raipur', 
             gender: 'F',
             location: { lat: 21.253566502049278, lng: 81.63108567665014, label: 'Raipur, Chhattisgarh' } 
         },
@@ -395,6 +418,7 @@ var familyData = [
             occupation: 'Medical Student', 
             education: 'MBBS', 
             gender: 'F',
+            college: 'DY Patil Medical University, Pune',
             location: { lat: 18.52928071245661, lng: 73.8787397952776, label: 'Pune, Maharashtra' } 
         },
         rels: { parents: ['13', '5'] }
@@ -425,7 +449,8 @@ var familyData = [
             avatar: 'images/aryan.png', 
             bio: '', 
             occupation: 'Engineering Student', 
-            education: '', 
+            education: '',
+            college: 'IIIT Dharwad', 
             gender: 'M',
             location: { lat: 15.460601365979242, lng: 75.01259933339826, label: 'Dharwad, Karnataka' }
         },

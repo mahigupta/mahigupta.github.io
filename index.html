@@ -497,6 +497,7 @@ function showPersonModal(personNode) {
   const hasBirthday = Boolean(person.birthday && String(person.birthday).trim())
   const hasOccupation = Boolean(person.occupation && String(person.occupation).trim())
   const hasEducation = Boolean(person.education && String(person.education).trim())
+  const hasCollege = Boolean(person.college && String(person.college).trim())
 
   personModalTitle.textContent = fullName
   personModalBody.innerHTML = `
@@ -505,6 +506,7 @@ function showPersonModal(personNode) {
     ${hasBirthday ? renderDetailRow('🎂 Birthday', person.birthday) : ''}
     ${hasOccupation ? renderDetailRow('💼 Occupation', person.occupation) : ''}
     ${hasEducation ? renderDetailRow('🎓 Education', person.education) : ''}
+    ${hasCollege ? renderDetailRow('🏫 College', person.college) : ''}
     ${renderBioSection(person.bio)}
   `
 
