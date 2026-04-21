@@ -30,23 +30,29 @@ export function setupAlbumModal() {
     ).join('');
     albumModal.classList.add('open');
     albumModal.setAttribute('aria-hidden', 'false');
-    // Initialize Swiper (or update if already exists)
+    // Always destroy previous Swiper instance if exists
     if (albumSwiper) {
-      albumSwiper.update();
-    } else {
-      albumSwiper = new Swiper('#albumSwiper', {
-        loop: true,
-        pagination: { el: '.swiper-pagination', clickable: true },
-        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-        slidesPerView: 1,
-        spaceBetween: 24,
-        centeredSlides: true,
-        keyboard: { enabled: true },
-      });
+      albumSwiper.destroy(true, true);
+      albumSwiper = null;
     }
+    // Initialize Swiper fresh
+    albumSwiper = new Swiper('#albumSwiper', {
+      loop: true,
+      pagination: { el: '.swiper-pagination', clickable: true },
+      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+      slidesPerView: 1,
+      spaceBetween: 24,
+      centeredSlides: true,
+      keyboard: { enabled: true },
+    });
   };
   closeAlbumModalBtn.onclick = function() {
     albumModal.classList.remove('open');
     albumModal.setAttribute('aria-hidden', 'true');
+    // Destroy Swiper instance on close to prevent navigation bug
+    if (albumSwiper) {
+      albumSwiper.destroy(true, true);
+      albumSwiper = null;
+    }
   };
 }
