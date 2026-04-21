@@ -1,0 +1,371 @@
+/* Main site styles extracted from index.html */
+
+body { 
+  font-family: 'Arial', sans-serif; 
+  margin: 0;
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 220px);
+  color: #0f172a;
+}
+
+.page-header {
+  padding: 0;
+  display: block;
+}
+
+.page-title-frame {
+  min-width: min(760px, calc(100% - 32px));
+  padding: 20px 28px;
+  border: 1px solid #cbd5e1;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.page-title-frame::before,
+.page-title-frame::after {
+  content: "";
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(148, 163, 184, 0.22) 0%, rgba(148, 163, 184, 0) 70%);
+  pointer-events: none;
+}
+
+.page-title-frame::before {
+  top: -70px;
+  left: -40px;
+}
+
+.page-title-frame::after {
+  right: -45px;
+  bottom: -90px;
+}
+
+.page-title-accent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 10px;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.page-title-accent::before,
+.page-title-accent::after {
+  content: "";
+  width: 72px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(100, 116, 139, 0), rgba(100, 116, 139, 0.9), rgba(100, 116, 139, 0));
+}
+
+.page-title {
+  margin: 0;
+  text-align: center;
+  font-size: 60px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: #0f172a;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+  position: relative;
+  z-index: 1;
+}
+
+.page-subtitle {
+  margin-top: 10px;
+  text-align: center;
+  color: #475569;
+  font-size: 16px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+
+.f3 .link {
+  stroke: #334155;
+  stroke-width: 2px;
+}
+
+.f3 .link.f3-path-to-main {
+  stroke: #0f172a;
+}
+
+.f3 div.card .deceased-badge {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: 22px;
+  height: 22px;
+  color: #f97316;
+  font-size: 25px;
+  line-height: 22px;
+  text-align: center;
+  pointer-events: none;
+  z-index: 2;
+}
+
+#FamilyChart {
+  width:100%;
+  height:min(58vh, 580px);
+  margin:auto;
+  color:#fff;
+}
+
+.family-tree-hint {
+  width: min(1200px, calc(100% - 24px));
+  margin: 4px auto 0;
+  padding: 0 4px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.family-map-section {
+  width: min(1200px, calc(100% - 24px));
+  margin: 6px auto 24px;
+  padding: 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+}
+
+.family-map-title {
+  margin: 0 0 6px;
+  font-size: 24px;
+  color: #0f172a;
+}
+
+.family-map-subtitle {
+  margin: 0 0 14px;
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+#FamilyMap {
+  width: 100%;
+  height: 380px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #cbd5e1;
+  background: #e2e8f0;
+}
+
+.family-map-hint {
+  margin: 10px 2px 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.person-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.55);
+  z-index: 20;
+}
+
+.person-modal.open {
+  display: flex;
+}
+
+.person-modal-card {
+  width: min(620px, 100%);
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.2);
+  overflow: hidden;
+}
+
+.person-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.person-modal-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.person-modal-close {
+  border: none;
+  background: transparent;
+  color: #334155;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.person-modal-body {
+  padding: 16px;
+  color: #1e293b;
+}
+
+.person-avatar-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.person-full-name {
+  margin-top: 12px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.deceased-name-icon {
+  color: #f97316;
+  font-size: 14px;
+  display: inline-block;
+  position: relative;
+  top: -10px;
+}
+
+.person-avatar {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  border: 2px solid #cbd5e1;
+  object-fit: cover;
+  background: #e2e8f0;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.16);
+}
+
+.person-avatar-fallback {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  border: 2px solid #cbd5e1;
+  background: linear-gradient(145deg, #1e293b, #334155);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 70px;
+  font-weight: 700;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.16);
+}
+
+.person-detail-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.person-detail-label {
+  min-width: 90px;
+  color: #475569;
+  font-weight: 700;
+}
+
+.person-bio-block {
+  margin-top: 10px;
+  padding: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.person-bio-label {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #475569;
+}
+
+.person-bio-text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #1e293b;
+  white-space: pre-line;
+}
+
+@media (max-width: 700px) {
+  .page-header {
+    padding: 18px 12px 8px;
+  }
+
+  .page-title-frame {
+    padding: 18px 18px 16px;
+    border-radius: 18px;
+  }
+
+  .page-title {
+    font-size: 38px;
+  }
+
+  .page-title-accent {
+    gap: 10px;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+  }
+
+  .page-title-accent::before,
+  .page-title-accent::after {
+    width: 42px;
+  }
+
+  .page-subtitle {
+    font-size: 12px;
+  }
+
+  #FamilyChart {
+    height: min(54vh, 500px);
+  }
+
+  .family-map-section {
+    width: calc(100% - 20px);
+    margin: 14px auto 22px;
+    padding: 12px;
+  }
+
+  .family-tree-hint {
+    width: calc(100% - 20px);
+  }
+
+  #FamilyMap {
+    height: 300px;
+  }
+
+  .person-avatar,
+  .person-avatar-fallback {
+    width: 130px;
+    height: 130px;
+  }
+
+  .person-avatar-fallback {
+    font-size: 40px;
+  }
+
+  .person-full-name {
+    font-size: 20px;
+  }
+}
