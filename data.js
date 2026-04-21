@@ -541,7 +541,7 @@ var familyData = [
         data: { 
             first_name: 'Coming', 
             last_name: 'Soon', 
-            nickname: '', 
+            nickname: 'Puchi Junior', 
             birthday: '', 
             avatar: '', 
             bio: '', 
