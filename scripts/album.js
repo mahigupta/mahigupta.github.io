@@ -2,6 +2,7 @@
 // Album Modal & Swiper Carousel logic
 export function setupAlbumModal() {
   const albumImages = [
+    { src: 'images/album/sushma_gupta_family.png', caption: 'Vinod, Shikha, Shubham & Sushma Gupta' },
     { src: 'images/album/rupa_gupta_family.jpg', caption: 'Rupa, Satish, Adarsh & Akansha Gupta' },
     { src: 'images/album/sanjay_gupta_family.jpg', caption: 'Sanjay, Rakhi, Eshita & Eshan Gupta' },
     { src: 'images/album/manoj_gupta_family.jpg', caption: 'Manoj, Pooja, Aryan & Aarav Gupta' },
@@ -9,6 +10,7 @@ export function setupAlbumModal() {
     { src: 'images/album/shrikant_gupta_family.jpg', caption: 'Shrikant, Vidhi, Sanvi & Samarth Gupta' },
     { src: 'images/album/mahesh_gupta_family.jpg', caption: 'Mahesh, Rupal & Vedant Gupta' },
     { src: 'images/album/ruchi_gupta_family.jpg', caption: 'Ruchi & Varun' },
+    { src: 'images/album/shikha_gupta_family.jpeg', caption: 'Shikha, Saurabh & Sudhiksha Johri' },
     // Add more images with captions as needed
   ];
 
