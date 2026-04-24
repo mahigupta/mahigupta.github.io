@@ -26,7 +26,7 @@ export function setupFamilyTree() {
     const displayNickname = person.nickname && String(person.nickname).trim()
       ? person.nickname
       : person.first_name;
-    const hasBirthday = Boolean(person.birthday && String(person.birthday).trim());
+    // const hasBirthday = Boolean(person.birthday && String(person.birthday).trim());
     const hasOccupation = Boolean(person.occupation && String(person.occupation).trim());
     const hasEducation = Boolean(person.education && String(person.education).trim());
     const hasCollege = Boolean(person.college && String(person.college).trim());
@@ -90,7 +90,6 @@ export function setupFamilyTree() {
     personModalBody.innerHTML = `
       ${renderPersonAvatar(person, fullName)}
       ${renderDetailRow('🏷️ Nickname', displayNickname)}
-      ${hasBirthday ? renderDetailRow('🎂 Birthday', person.birthday) : ''}
       ${hasOccupation ? renderDetailRow('💼 Occupation', person.occupation) : ''}
       ${hasEducation ? renderDetailRow('🎓 Education', person.education) : ''}
       ${hasCollege ? renderDetailRow('🏫 College', person.college) : ''}
@@ -127,7 +126,7 @@ export function setupFamilyTree() {
     .setCardYSpacing(150);
   const card = f3Chart.setCardHtml();
   card
-    .setCardDisplay([["first_name","last_name"],["birthday"]])
+    .setCardDisplay([["first_name","last_name"]])
     .setOnCardUpdate(function (d) {
       setDeceasedBadge(this, d?.data?.data || {});
     })
