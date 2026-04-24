@@ -100,12 +100,8 @@ var familyData = [
         data: { 
             first_name: 'Mamta', 
             last_name: 'Gupta', 
-            nickname: '', 
-            avatar: 'images/mamta.jpeg', 
-            bio: '', 
-            occupation: 'Software Engineer', 
-            education: 'BE (CSE)', 
-            college: 'BIT Durg', 
+            nickname: '',  
+            bio: '',
             gender: 'F',
             location: { lat: 12.973350843644926, lng: 77.59315049123066, label: 'Bangalore, Karnataka' }
         },
@@ -228,12 +224,8 @@ var familyData = [
         data: { 
             first_name: 'Ankush', 
             last_name: 'Garg', 
-            nickname: '',
-            avatar: 'images/ankush.jpg', 
+            nickname: '', 
             bio: '', 
-            occupation: 'Director, Consulting, Deloitte India', 
-            education: 'BE, MBA', 
-            college: 'University of Mumbai, Temple University', 
             gender: 'M',
             location: { lat: 12.973350843644926, lng: 77.59315049123066, label: 'Bangalore, Karnataka' } 
         },
@@ -449,7 +441,6 @@ var familyData = [
             first_name: 'Ansh', 
             last_name: 'Garg', 
             nickname: '', 
-            avatar: 'images/ansh.jpg', 
             bio: '', 
             occupation: 'Student', 
             education: '', 

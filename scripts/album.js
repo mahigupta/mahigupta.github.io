@@ -6,7 +6,6 @@ export function setupAlbumModal() {
     { src: 'images/album/rupa_gupta_family.jpg', caption: 'Rupa, Satish, Adarsh & Akansha Gupta' },
     { src: 'images/album/sanjay_gupta_family.jpg', caption: 'Sanjay, Rakhi, Eshita & Eshan Gupta' },
     { src: 'images/album/manoj_gupta_family.jpg', caption: 'Manoj, Pooja, Aryan & Aarav Gupta' },
-    { src: 'images/album/mamta_gupta_family.jpg', caption: 'Mamta, Ansh & Ankush Garg' },
     { src: 'images/album/shrikant_gupta_family.jpg', caption: 'Shrikant, Vidhi, Sanvi & Samarth Gupta' },
     { src: 'images/album/mahesh_gupta_family.jpg', caption: 'Mahesh, Rupal & Vedant Gupta' },
     { src: 'images/album/ruchi_gupta_family.jpg', caption: 'Ruchi & Varun' },
