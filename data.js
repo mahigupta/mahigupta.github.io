@@ -497,9 +497,9 @@ var familyData = [
     {
         id: '33',
         data: { 
-            first_name: 'Coming', 
-            last_name: 'Soon', 
-            nickname: 'Puchi Junior', 
+            first_name: 'Vanshika', 
+            last_name: 'Prakash', 
+            nickname: 'Vani', 
             avatar: '', 
             bio: '', 
             occupation: 'Boss Baby', 
